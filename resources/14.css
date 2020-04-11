@@ -754,6 +754,12 @@ html .footerPart {
     padding: 0 !important;
     width: 100% !important;
 }
+.rightPartInner{
+    font-size:15px;
+    font-family: 'American Typewriter','Helvetica','Arial';
+    width: 100% !important;
+    float: right;
+}
 
 .innerBanner {
     display: none;

@@ -3655,6 +3655,14 @@ body.wob {
     width: 75%;
     float: left;
 }
+.rightPartInner{
+    padding: 100px 40px 30px 0;
+    font-size:15px;
+    font-family: 'American Typewriter','Helvetica','Arial';
+    width: 25%;
+    float: right;
+}
+
 
 .innerContentPart {
     position: relative;

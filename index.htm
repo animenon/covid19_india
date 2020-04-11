@@ -7,6 +7,7 @@
     <title>
         India - Covid19 Map
     </title>
+    <link rel="icon" type="image/png"  href="./resources/icon.png">
     <link href="./resources/5.css" id="css5" rel="stylesheet" type="text/css">
     <link href="./resources/15.css" id="css15" rel="stylesheet" type="text/css">
     <meta content="India Covid19 Map" name="title">
@@ -56,16 +57,16 @@
                         <div class="leftPartInner"><a id="contentStart" name="contentStart"></a>
                             <div class="leftContOuter">
                                 <div id="innerContent">
-                                    <h1 style="text-align: center; font-family: 'American Typewriter', Sans-serif, Arial; font-size: 25px">
-                                        India Covid19 Map</h1>
+                                    <h1 style="text-align: center; font-family: 'American Typewriter', 'Sans-serif', 'Arial'; ">
+                                        India - Covid19 Map</h1>
+                                    <p class="center"><i>Click on the states to get the Covid19 Numbers & Click the "Refresh" button to fetch latest data.</i></p>
                                     <h2 style="text-align: center;">
-                                        <button id="ref_but"
-                                                onclick="get_data()" style="background-color: #4CAF50; /* Green */ border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;border-radius: 25px;" type="button">Refresh
+                                        <button id="ref_but" onclick="get_data()" style="background-color: #4CAF50; /* Green */ border: none; color: white; padding: 8px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;border-radius: 25px;" type="button">Refresh
                                         </button>
                                     </h2>
-                                    <h3 style="text-align: center;">
-                                        <div id="refreshed"></div>
-                                    </h3>
+                                    <!--<h5 class="center">
+                                        <div id="refreshed" style="font-style: italic;font-size: 12px"></div>
+                                    </h5>-->
                                     <div class="indiaMapImg">
                                         <div style="display: block; position: relative; margin-left: auto; margin-right: auto;">
                                             <canvas height="590"
@@ -192,13 +193,13 @@
                                                   target="_blank"
                                                   title="Diu">
                                             <area alt="Chandigarh(1)" coords="162,119,160,125,163,126,165,127,167,127,169,126,166,124,163,120"
-                                                  shape="poly" target="_blank"
+                                                  shape="poly" target="_blank" id = "Chandigarh"
                                                   title="Chandigarh">
                                             <area alt="Lakshadweep" coords="42,475,40,482,38,487,39,494,44,495,49,502,47,508,45,511,46,518,48,522,54,523,62,557,67,556,68,535,67,523,82,525,85,520,84,516,80,514,69,511,66,505,68,501,73,497,75,491,73,486,67,481,57,479,54,475,53,468,47,468,42,472"
-                                                  shape="poly" target="_blank"
+                                                  shape="poly" target="_blank" id="lakshadweep"
                                                   title="Lakshadweep(1)">
                                             <area alt="Andaman and Nicobar Islands" coords="452,451,448,461,447,473,446,482,435,485,434,492,439,505,446,516,446,525,449,534,447,545,450,553,454,559,459,572,468,577,472,580,474,585,479,589,483,589,484,585,482,579,480,573,476,568,477,561,476,556,471,552,464,550,461,544,459,536,457,524,457,512,459,497,462,493,469,493,476,491,479,485,478,479,472,474,467,467,466,458,469,453,472,446,473,437,473,428,467,428,458,431,451,442,452,451"
-                                                   shape="poly" target="_blank"
+                                                   shape="poly" target="_blank" id="ANI"
                                                   title="Andaman and Nicobar Islands(1)">
                                             <area alt="Andhra Pradesh" coords="213,461,213,456,213,451,212,448,211,443,213,441,213,435,212,430,212,425,214,420,217,415,221,413,226,413,228,415,230,413,233,408,235,405,239,405,243,406,249,404,248,399,249,394,251,391,256,391,262,387,269,385,271,381,275,376,283,371,288,368,291,364,295,358,299,354,289,360,286,361,281,358,277,356,273,360,268,361,267,365,267,367,266,370,263,368,258,371,258,366,256,368,253,374,251,377,247,376,243,378,238,379,236,379,234,384,227,387,224,391,221,392,217,391,214,394,210,393,206,393,206,398,202,399,196,399,193,403,190,407,185,407,184,410,179,410,174,411,173,413,170,414,166,412,161,412,152,413,152,417,152,420,153,424,154,426,153,429,148,429,148,432,146,435,147,439,149,441,148,443,150,445,153,443,157,442,158,443,159,446,157,449,157,453,157,455,161,453,165,451,168,453,170,457,174,457,175,461,178,463,179,466,176,470,172,473,171,475,174,478,178,477,179,474,179,471,182,469,186,470,191,471,194,467,196,464,201,467,205,463,207,461"
                                                    id="andhraPradesh"
@@ -215,20 +216,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="rightPartInner"><div id="refreshed" style="font-style: italic;font-size: 12px"></div><div id="TT"></div><div class="twitter"><br/><a href="https://twitter.com/intent/tweet?button_hashtag=IndiaFightsCorona" class="twitter-hashtag-button" data-show-count="false">Tweet #IndiaFightsCorona</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
-    <div id="TT" style="padding-left:10%;margin-left: 10%;font-size:12px; font-family: 'American Typewriter'"></div>
+
     <br/>
-
-    </div>
-    </div>
-
-    </form>
     <script src="./resources/functions.js" type="text/javascript"></script>
     <noscript class="displayNone"></noscript>
     <script src="./resources/general-new.js" type="text/javascript"></script>
@@ -266,9 +262,9 @@
             'TR': 'tripura',
             'ML': 'meghalaya',
             'NL': 'nagaland',
-            'SK': 'sikkim'
+            'SK': 'sikkim', 'LD': 'lakshadweep', 'CH': 'Chandigarh', 'AN': 'ANI'
         };
-        // 'TT': 'total', 'DD': 'Daman and Diu', 'LD': 'Lakshadweep', 'CH': 'Chandigarh', 'PY': 'Puducherry'
+        // 'TT': 'total', 'DD': 'Daman and Diu', 'PY': 'Puducherry'
 
         //console.log(states_dict);
         get_data();
@@ -310,13 +306,16 @@
                     */
                     fv = flattenObject(state_value);
                     if (fv['statecode'] == 'TT') {
-                        str_to_disp = "TOTAL:\nActive: " + fv['active'] + "\t\tConfirmed: " + fv['confirmed'] +
-                            "\n Deaths: " + fv['deaths'] + "\t\tRecovered: " + fv['recovered'];
+                        str_to_disp = `TOTAL
+                                        Confirmed : ${fv['confirmed']}
+                                        Active : ${fv['active']}
+                                        Deaths : ${fv['deaths']}
+                                        Recovered : ${fv['recovered']}`;
                         document.getElementById('TT').innerText = "\n" + str_to_disp;
                     }
                     if (fv['statecode'] in states_dict) {
                         //console.log(states_dict[fv['statecode']] + " : " + fv['active'] + fv['confirmed'] + fv['deaths']);
-                        str_to_disp = "\nActive: " + fv['active'] + "\nConfirmed: " + fv['confirmed'] +
+                        str_to_disp = "\nConfirmed: " + fv['confirmed'] + "\nActive: " + fv['active'] +
                             "\n Deaths: " + fv['deaths'] + "\nRecovered: " + fv['recovered'];
                         document.getElementById(states_dict[fv['statecode']]).title = flattenObject(state_value)['state'] + "\n" + str_to_disp;
                     }
@@ -333,7 +332,7 @@
 
     </script>
     <noscript class="displayNone"></noscript>
-    <span style="font-family: Arial, Helvetica, Sans-serif; font-size: 12px;">Note: Numbers for few of the Union territories like Ladakh are not populated appropriately! </span>
+    <span style="font-family: Arial, Helvetica, Sans-serif; font-size: 12px;">Note: Numbers for few of the Union territories like Ladakh are not populated appropriately. </span>
 
     </body>
     <footer style="font-family: 'American Typewriter'; font-size: 12px;">
