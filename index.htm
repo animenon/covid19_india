@@ -36,12 +36,8 @@
 
 
             <div id="ContentPlaceHolder1_mainbody">
-
-
                 <div class="innerPage" id="wrapper">
-                    <div class="container">
-
-                    </div>
+                    <div class="container"></div>
                 </div>
                 <div class="mainNavigation cf" id="mainNav">
                     <div class="menuPart cf" id="ContentPlaceHolder1_UserMenuHorizontal1_divMenu">
@@ -216,7 +212,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="rightPartInner"><div id="refreshed" style="font-style: italic;font-size: 12px"></div><div id="TT"></div><div class="twitter"><br/><a href="https://twitter.com/intent/tweet?button_hashtag=IndiaFightsCorona" class="twitter-hashtag-button" data-show-count="false">Tweet #IndiaFightsCorona</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div></div>
+                        <div class="rightPartInner">
+                            <div class="rightColor"  style="background-color: #add8e6;border-radius: 10px;padding: 10px;">
+                                <div id="refreshed" style="font-style: italic;font-size: 12px;"></div>
+                                <div id="TT"></div><hr />
+                                <div id="stats"></div><hr />
+                                <div style="height:250px;width:100%;border:1px solid #4e4e4e;font:15px Arial, Serif;overflow:auto;padding: 5%;">
+                                    <strong style="text-align: center">STATE HELPLINES</strong>
+                                    <table id="helpline"></table>
+                                </div>
+                                <div class="twitter"><br/>
+                                    <a href="https://twitter.com/intent/tweet?button_hashtag=IndiaFightsCorona" class="twitter-hashtag-button" data-show-count="false">Tweet #IndiaFightsCorona</a>
+                                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -232,40 +242,9 @@
 
 
     <script type="application/javascript">
-        var states_dict = {
-            'MH': 'maharashtra',
-            'TN': 'tamilnadu',
-            'DL': 'National',
-            'TG': 'telangana',
-            'RJ': 'rajasthan',
-            'KL': 'kerala',
-            'UP': 'uttarPradesh',
-            'AP': 'andhraPradesh',
-            'MP': 'madhyaPradesh',
-            'KA': 'karnataka',
-            'GJ': 'gujarat',
-            'HR': 'haryana',
-            'JK': 'jammuKashmir',
-            'PB': 'punjab',
-            'WB': 'westBengal',
-            'OR': 'Odisha',
-            'BR': 'bihar',
-            'UT': 'uttarakhand',
-            'AS': 'assam',
-            'HP': 'himachalPradesh',
-            'CT': 'chhattisgarh',
-            'GA': 'goa',
-            'JH': 'jharkhand',
-            'MN': 'manipur',
-            'MZ': 'mizoram',
-            'AR': 'arunachalPradesh',
-            'TR': 'tripura',
-            'ML': 'meghalaya',
-            'NL': 'nagaland',
-            'SK': 'sikkim', 'LD': 'lakshadweep', 'CH': 'Chandigarh', 'AN': 'ANI'
-        };
+        var states_dict = {'MH': 'maharashtra', 'TN': 'tamilnadu', 'DL': 'National', 'TG': 'telangana', 'RJ': 'rajasthan', 'KL': 'kerala', 'UP': 'uttarPradesh', 'AP': 'andhraPradesh', 'MP': 'madhyaPradesh', 'KA': 'karnataka', 'GJ': 'gujarat', 'HR': 'haryana', 'JK': 'jammuKashmir', 'PB': 'punjab', 'WB': 'westBengal', 'OR': 'Odisha', 'BR': 'bihar', 'UT': 'uttarakhand', 'AS': 'assam', 'HP': 'himachalPradesh', 'CT': 'chhattisgarh', 'GA': 'goa', 'JH': 'jharkhand', 'MN': 'manipur', 'MZ': 'mizoram', 'AR': 'arunachalPradesh', 'TR': 'tripura', 'ML': 'meghalaya', 'NL': 'nagaland', 'SK': 'sikkim', 'LD': 'lakshadweep', 'CH': 'Chandigarh', 'AN': 'ANI'};
         // 'TT': 'total', 'DD': 'Daman and Diu', 'PY': 'Puducherry'
-
+        var helpline_nos = {'Andhra Pradesh':'0866-2410978', 'Arunachal Pradesh':'9436055743', 'Assam':'6913347770', 'Bihar':'104', 'Chhattisgarh':'104', 'Goa':'104', 'Gujarat':'104', 'Haryana':'8558893911', 'Himachal Pradesh':'104', 'Jharkhand':'104', 'Karnataka':'104', 'Kerala':'0471-2552056', 'Madhya Pradesh':'104', 'Maharashtra':'020-26127394', 'Manipur':'3852411668', 'Meghalaya':'108', 'Mizoram':'102', 'Nagaland':'7005539653', 'Odisha':'9439994859', 'Punjab':'104', 'Rajasthan':'0141-2225624', 'Sikkim':'104', 'Tamil Nadu':'044-29510500', 'Telangana':'104', 'Tripura':'0381-2315879', 'Uttarakhand':'104', 'Uttar Pradesh':'18001805145', 'West Bengal':'1800313444222, 03323412600', 'Andaman and Nicobar Islands':'03192-232102', 'Chandigarh':'9779558282', 'Dadra and Nagar Haveli and Daman & Diu':'104', 'Delhi':'011-22307145', 'Jammu & Kashmir':'01912520982, 0194-2440283', 'Ladakh':'01982256462', 'Lakshadweep':'104', 'Puducherry':'104' };
         //console.log(states_dict);
         get_data();
         var flattenObject = function (ob) {
@@ -284,6 +263,23 @@
             }
             return toReturn;
         };
+        //console.log(flattenObject(helpline_nos));
+        var table = document.getElementById("helpline");
+        for (var key in helpline_nos) {
+            if (helpline_nos.hasOwnProperty(key)) {
+                // Create an empty tr element and add it to the 1st position of the table:
+                var row = table.insertRow(-1);
+                // Insert new cells (td elements) at the 1st and 2nd position of the "new" tr element:
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                // Add some text to the new cells:
+                cell1.innerHTML = key;
+                cell2.innerHTML = helpline_nos[key];
+                //console.log(key + " -> " + p[key]);
+            }
+        }
+
+
 
         /*window.setInterval(function(){
             get_data(); // get data every 10 s
@@ -292,6 +288,29 @@
         function get_data() {
             $.getJSON("https://api.covid19india.org/data.json", function (return_data) {
                 //console.log(return_data['statewise']);
+                /*$.each(return_data['tested'], function (total_day, total_value) {
+                    //  "positivecasesfromsamplesreported", "samplereportedtoday", "source", "testsconductedbyprivatelabs",
+                    // "totalindividualstested", "totalpositivecases", "totalsamplestested", "updatetimestamp"
+                    var res_val = flattenObject(total_value)
+                    console.log(res_val['updatetimestamp']+":"+res_val['totalpositivecases'])
+                    console.log(typeof(res_val))
+                    console.log(res_val[0])
+                    var str_to_disp = ""
+                    document.getElementById('stats').innerText = "\n" + str_to_disp;
+                });
+                */
+                var arr = return_data['tested'];
+                var today_numbers = arr[arr.length-1]
+
+                var str_to_disp = `
+                                    Individuals Tested : ${today_numbers['totalindividualstested']}
+                                    Positive Cases : ${today_numbers['totalpositivecases']}`+"\n";
+                var statsDiv = document.getElementById("stats");
+                statsDiv.innerText = "\nTOTAL SAMPLES TESTED as of "+ today_numbers['updatetimestamp'] +" :\n"+str_to_disp;
+                var aTag = document.createElement('a');
+                aTag.setAttribute('href', today_numbers['source']);
+                aTag.innerText = "source";
+                statsDiv.appendChild(aTag);
                 $.each(return_data['statewise'], function (state_key, state_value) {
                     /* "active": "5950",
                         "confirmed": "6820",
@@ -304,14 +323,13 @@
                         "state": "Total",
                         "statecode": "TT"
                     */
-                    fv = flattenObject(state_value);
+                    var fv = flattenObject(state_value);
                     if (fv['statecode'] == 'TT') {
-                        str_to_disp = `TOTAL
-                                        Confirmed : ${fv['confirmed']}
+                        var str_to_disp = `Confirmed : ${fv['confirmed']}
                                         Active : ${fv['active']}
                                         Deaths : ${fv['deaths']}
                                         Recovered : ${fv['recovered']}`;
-                        document.getElementById('TT').innerText = "\n" + str_to_disp;
+                        document.getElementById('TT').innerText = "\nNATIONAL TOTAL\n" + str_to_disp;
                     }
                     if (fv['statecode'] in states_dict) {
                         //console.log(states_dict[fv['statecode']] + " : " + fv['active'] + fv['confirmed'] + fv['deaths']);

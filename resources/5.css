@@ -3663,11 +3663,6 @@ body.wob {
     float: right;
 }
 
-
-.innerContentPart {
-    position: relative;
-}
-
 .innerContentPart .leftContOuter {
     padding: 15px 0;
 }
