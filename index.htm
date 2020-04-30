@@ -301,12 +301,16 @@
                 */
                 var arr = return_data['tested'];
                 var today_numbers = arr[arr.length-1]
-
-                var str_to_disp = `
-                                    Individuals Tested : ${today_numbers['totalindividualstested']}
-                                    Positive Cases : ${today_numbers['totalpositivecases']}`+"\n";
+                /*var str_to_disp = `
+                                    Total Samples tested: ${today_numbers['totalsamplestested']}
+                                    Total Positive cases reported : ${today_numbers['totalpositivecases']}`+"\n";
+                */
+                var cases_numbers = return_data['cases_time_series'][return_data['cases_time_series'].length-1]
                 var statsDiv = document.getElementById("stats");
-                statsDiv.innerText = "\nTOTAL SAMPLES TESTED as of "+ today_numbers['updatetimestamp'] +" :\n"+str_to_disp;
+                statsDiv.innerText = "\nAs of "+ today_numbers['updatetimestamp']  +" :\nTotal samples tested : " +
+                                        today_numbers['totalsamplestested'] + "\n \nConfirmed cases today: " +
+                                        cases_numbers['dailyconfirmed'] + "\nDeceased today: " + cases_numbers['dailydeceased']
+                                        + "\nRecovered today: " + cases_numbers['dailyrecovered'] + "\n";
                 var aTag = document.createElement('a');
                 aTag.setAttribute('href', today_numbers['source']);
                 aTag.innerText = "source";
