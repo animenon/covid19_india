@@ -250,7 +250,7 @@ hr {
 
 body, button, input, select, textarea {
     color: #595656;
-    font-family: 'Open Sans';
+    font-family: Avenir, 'Open Sans', Serif;
     font-size: 75%;
     line-height: 1.5;
 }

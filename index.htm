@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png"  href="./resources/icon.png">
     <link href="./resources/5.css" id="css5" rel="stylesheet" type="text/css">
     <link href="./resources/15.css" id="css15" rel="stylesheet" type="text/css">
+    <link href="./resources/custom.css" id="custom_css" rel="stylesheet" type="text/css"/>
     <meta content="India Covid19 Map" name="title">
     <meta content="english" name="language">
     <meta content="India Covid19 Map" name="keyword">
@@ -22,7 +23,7 @@
     <script src="./resources/jquery.min.js" type="text/javascript"></script>
     <noscript class="displayNone"></noscript>
     <noscript class="displayNone"></noscript>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"
             type="text/javascript"></script>
     <noscript class="displayNone"></noscript>
     <script src="./resources/modernizr.custom.js"></script>
@@ -47,14 +48,23 @@
 
                 </div>
             </div>
-            <div id="container">
+            <div style="background:rgba(255,255,255,0.5);z-index: 100;">
+                <h1 style="text-align: center; font-family: 'American Typewriter', 'Sans-serif', 'Arial'; ">
+                    India - Covid19 Map (Discontinued)</h1>
+                <h2 style="text-align: center;">
+                    This service is stopped as of December 2021! <br />
+                    The page was actively maintained to give information of covid counts in various states/districts of India between 2020 and 2021. <br />
+                    It also provided list of covid helplines in various states of India.
+                </h2>
+            </div>
+            <div id="container" style="display: None;">
                 <div class="containWrap wrap">
                     <div class="contentPart innerContentPart cf">
                         <div class="leftPartInner"><a id="contentStart" name="contentStart"></a>
                             <div class="leftContOuter">
                                 <div id="innerContent">
-                                    <h1 style="text-align: center; font-family: 'American Typewriter', 'Sans-serif', 'Arial'; ">
-                                        India - Covid19 Map</h1>
+                                    <!-- <h1 style="text-align: center; font-family: 'American Typewriter', 'Sans-serif', 'Arial'; ">
+                                        India - Covid19 Map (Discontinued)</h1> -->
                                     <p class="center"><i>Click on the states to get the Covid19 Numbers & Click the "Refresh" button to fetch latest data.</i></p>
                                     <h2 style="text-align: center;">
                                         <button id="ref_but" onclick="get_data()" style="background-color: #4CAF50; /* Green */ border: none; color: white; padding: 8px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;border-radius: 25px;" type="button">Refresh
@@ -208,12 +218,11 @@
                                         </map>
                                     </div>
 
-
                                 </div>
                             </div>
                         </div>
                         <div class="rightPartInner">
-                            <div class="rightColor"  style="background-color: #add8e6;border-radius: 10px;padding: 10px;">
+                            <div class="info_bx">
                                 <div id="refreshed" style="font-style: italic;font-size: 12px;"></div>
                                 <div id="TT"></div><hr />
                                 <div id="stats"></div><hr />
@@ -228,6 +237,26 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info_bx spacing_sides center"  style="display: None;">
+            <h3>District-wise Data</h3> <p class="italic">Select the state and district to fetch data</p>
+            <div class="special_box">
+                <div class="half_width_inline">
+                    <div class="width100p"><div>Choose the State</div>
+                    <select id="selState" onchange="updateCities(this)" class="font18"></select></div>
+                </div>
+                <div class="half_width_inline">
+                    <div class="width100p"><div>Choose the District</div>
+                    <select id="selCity" onchange="updateDistrictNumbers();dist_data_load_daily();" class="font18"></select></div>
+                </div>
+                <!--<div id="state_pop" class="font18" style="font-weight: bold;"></div>-->
+                <hr />
+                <div class="width100p">
+                    <div id="district_wise" style="font-size: large; text-align: center;" class="one_third_width_inline custom_pad_fg ">Aggregate Counts</div>
+                    <div id="district_wise_daily" style="font-size: large; text-align: center;" class="two_third_width_inline custom_pad_fg ">Daily Counts</div>
                 </div>
             </div>
         </div>
@@ -279,36 +308,24 @@
             }
         }
 
-
-
         /*window.setInterval(function(){
             get_data(); // get data every 10 s
         }, 10000);
         */
         function get_data() {
+
             $.getJSON("https://api.covid19india.org/data.json", function (return_data) {
-                //console.log(return_data['statewise']);
-                /*$.each(return_data['tested'], function (total_day, total_value) {
-                    //  "positivecasesfromsamplesreported", "samplereportedtoday", "source", "testsconductedbyprivatelabs",
-                    // "totalindividualstested", "totalpositivecases", "totalsamplestested", "updatetimestamp"
-                    var res_val = flattenObject(total_value)
-                    console.log(res_val['updatetimestamp']+":"+res_val['totalpositivecases'])
-                    console.log(typeof(res_val))
-                    console.log(res_val[0])
-                    var str_to_disp = ""
-                    document.getElementById('stats').innerText = "\n" + str_to_disp;
-                });
-                */
                 var arr = return_data['tested'];
-                var today_numbers = arr[arr.length-1]
+                var today_numbers = arr[arr.length-1];
                 /*var str_to_disp = `
                                     Total Samples tested: ${today_numbers['totalsamplestested']}
                                     Total Positive cases reported : ${today_numbers['totalpositivecases']}`+"\n";
                 */
-                var cases_numbers = return_data['cases_time_series'][return_data['cases_time_series'].length-1]
+                var cases_numbers = return_data['cases_time_series'][return_data['cases_time_series'].length-1];
                 var statsDiv = document.getElementById("stats");
-                statsDiv.innerText = "\nAs of "+ today_numbers['updatetimestamp']  +" :\nTotal samples tested : " +
-                                        today_numbers['totalsamplestested'] + "\n \nConfirmed cases today: " +
+                statsDiv.setAttribute('style', 'white-space: pre;');
+                statsDiv.innerText = "As of "+ today_numbers['updatetimestamp']  +" :\nTotal samples tested : " +
+                                        today_numbers['totalsamplestested'] + "\nConfirmed cases today: " +
                                         cases_numbers['dailyconfirmed'] + "\nDeceased today: " + cases_numbers['dailydeceased']
                                         + "\nRecovered today: " + cases_numbers['dailyrecovered'] + "\n";
                 var aTag = document.createElement('a');
@@ -333,7 +350,9 @@
                                         Active : ${fv['active']}
                                         Deaths : ${fv['deaths']}
                                         Recovered : ${fv['recovered']}`;
-                        document.getElementById('TT').innerText = "\nNATIONAL TOTAL\n" + str_to_disp;
+                        let tt = document.getElementById('TT');
+                        tt.style.fontWeight = 'bold';
+                        tt.innerText = "\nNATIONAL TOTAL\n" + str_to_disp;
                     }
                     if (fv['statecode'] in states_dict) {
                         //console.log(states_dict[fv['statecode']] + " : " + fv['active'] + fv['confirmed'] + fv['deaths']);
@@ -351,14 +370,177 @@
                 });
             });
         }
+        var selState = document.getElementById('selState'); //Select State Drop Down List
+        var selCity = document.getElementById('selCity');   // Select City Drop Down List
+        var districtLevelData = [];
+        function dist_data_load(){
+            $.getJSON("https://api.covid19india.org/state_district_wise.json", function (return_data) {
+                var all_known_states = Object.keys(return_data);
+                $.each(all_known_states, function (k, v) {
+                    let district_data = new Array();
+                    $.each(return_data[v]['districtData'], function (districtName, districtNumbers) {
 
+                        district_data[districtName] = districtNumbers;
+                        createOption(selCity, districtName, districtName);
+                    });
+                    districtLevelData[v] = district_data;
+                    createOption(selState, v, v);
+                });
+            });
+        }
+        dist_data_load();
+        //Create an option and add it to the drop down list with text and value
+        function createOption(ddl, text, value) {
+            var opt = document.createElement('option');
+            opt.value = value;
+            opt.text = text;
+            ddl.options.add(opt);
+        }
+        function updateCities(sel) {
+            selCity.length = 0;
+            for(district in districtLevelData[sel.selectedOptions[0].value]){
+                createOption(selCity, district, district);
+            }
+        }
+        function updateDistrictNumbers() {
+            let dw = document.getElementById("district_wise");
+            dw.innerHTML = "";
+            let values = districtLevelData[selState.selectedOptions[0].value][selCity.selectedOptions[0].value];
+            let text_adds = "";
+            if(values.hasOwnProperty('active')) {
+                text_adds += "<tr><td>Active</td><td>" + values['active'] + "</td></tr>";
+            }
+            if(values.hasOwnProperty('confirmed')) {
+                text_adds += "<tr><td>Confirmed</td><td>" + values['confirmed'] + "</td></tr>";
+            }
+            if(values.hasOwnProperty('recovered')) {
+                text_adds += "<tr><td>Recovered</td><td>" + values['recovered'] + "</td></tr>";
+            }
+            if(values.hasOwnProperty('deceased')) {
+                text_adds += "<tr><td>Deceased</td><td>" + values['deceased'] + "</td></tr>";
+            }
+            if(values.hasOwnProperty('notes') && values['notes'] != "" ){
+                text_adds += "<tr><td>Note</td><td>" + values['notes'] + "</td></tr>";
+            }
+            let text_to_disp = "<h4>Aggregate Counts</h4><table><tr><th colspan='2'>"+"State :<b>" + selState.selectedOptions[0].value +
+                "</b>\nDistrict : <b>" + selCity.selectedOptions[0].value +"</b></th></tr>" + text_adds + "</table>";
+            dw.innerHTML = text_to_disp.replace(/\n/g,'<br />');
+        }
+        function dist_data_load_daily(){
+            $.getJSON("https://api.covid19india.org/v4/data.json", function (return_data) {
+                //console.log(return_data)
+                var state_map = {'TT': 'Total', 'MH': 'Maharashtra', 'TN': 'Tamil Nadu', 'DL': 'Delhi', 'KA': 'Karnataka', 'AP': 'Andhra Pradesh', 'UP': 'Uttar Pradesh', 'GJ': 'Gujarat', 'WB': 'West Bengal', 'TG': 'Telangana', 'RJ': 'Rajasthan', 'BR': 'Bihar', 'HR': 'Haryana', 'AS': 'Assam', 'MP': 'Madhya Pradesh', 'OR': 'Odisha', 'JK': 'Jammu and Kashmir', 'KL': 'Kerala', 'PB': 'Punjab', 'JH': 'Jharkhand', 'CT': 'Chhattisgarh', 'UT': 'Uttarakhand', 'GA': 'Goa', 'TR': 'Tripura', 'PY': 'Puducherry', 'MN': 'Manipur', 'HP': 'Himachal Pradesh', 'LA': 'Ladakh', 'NL': 'Nagaland', 'AR': 'Arunachal Pradesh', 'CH': 'Chandigarh', 'DN': 'Dadra and Nagar Haveli and Daman and Diu', 'ML': 'Meghalaya', 'SK': 'Sikkim', 'MZ': 'Mizoram', 'AN': 'Andaman and Nicobar Islands', 'UN': 'State Unassigned', 'LD': 'Lakshadweep'}
+
+                let dw = document.getElementById("district_wise_daily");
+                dw.innerHTML = "";
+                let values = districtLevelData[selState.selectedOptions[0].value][selCity.selectedOptions[0].value];
+                let results = {};
+                $.each(return_data, function (state_k, state_v) {
+                    if(state_v.hasOwnProperty("districts")){
+                        // if(state_k.toString().trim() === "TG") {
+                        //     district_k = "Daily District-level data not known"
+                        //     district_v = state_v.delta;
+                        //     // console.log(state_k, "District-level data  not known", district_v.recovered, district_v.confirmed, district_v.deceased);
+                        //     // if(state_v.meta.hasOwnProperty('population'))
+                        //     //     district_v.population=state_v.meta.population;
+                        //     // else
+                        //     //     district_v.population="";
+                        //     if(state_v.meta.hasOwnProperty('notes'))
+                        //         district_v.notes=state_v.meta.notes;
+                        //     else
+                        //         district_v.notes="";
+                        //     results[state_map[state_k]] = {district_k: district_v};
+                        // }
+                        // else{
+                            $.each(state_v.districts, function (district_k, district_v) {
+                                if(district_v === "Other State") district_k = "Migrants";
+                                // if( district_v.hasOwnProperty('meta') && district_v.meta.hasOwnProperty('population'))
+                                //     district_v.total.population=district_v.meta.population;
+                                // else
+                                //     district_v.total.population="";
+                                if( district_v.hasOwnProperty('delta'))
+                                    results[state_map[state_k]] = {district_k: district_v.delta};
+                            });
+                        // }
+                    }
+                    else if(state_k === "TT")
+                        // console.log(state_k, "Today's "+state_map[state_k], state_v.delta);
+                        results[state_map[state_k]] = {'total': state_v.delta};
+                    else {
+                        console.log("Bad loop", state_k, state_map[state_k], state_v.delta);
+                        results[state_map[state_k]] = {state_k: state_v.delta};
+                    }
+                });
+                let state = selState.selectedOptions[0].value;
+                let district = selCity.selectedOptions[0].value;
+                let text_adds = "";
+                if(state == "Telangana"){
+                    text_adds = "<tr><th colspan='2'>"+"State :<b>" + state + "</b></th></tr>" +
+                        "<tr><th colspan='2'>State-level daily data below </b></th></tr>";
+                }
+                else {
+                    text_adds = "<tr><th colspan='2'>" + "State :<b>" + state + "</b>\nDistrict : <b>" + district + "</b></th></tr>";
+                }
+                console.log(results);
+
+                if(results.hasOwnProperty(state)){
+                    if(results[state].hasOwnProperty(state)){
+                        text_adds += "<tr><td>Recovered</td><td>" + results[state].district.recovered + "</td></tr>";
+                    }
+                    else if(results[state].hasOwnProperty(district)){
+                        if(results[state].district.hasOwnProperty('active')) {
+                            text_adds += "<tr><td>Active</td><td>" + results[state].district.active + "</td></tr>";
+                        }
+                        if(results[state].district.hasOwnProperty('confirmed')) {
+                            //console.log(results[state].district.confirmed);
+                            text_adds += "<tr><td>Confirmed</td><td>" + results[state].district.confirmed + "</td></tr>";
+                        }
+                        if(results[state].district.hasOwnProperty('recovered')) {
+                            text_adds += "<tr><td>Recovered</td><td>" + results[state].district.recovered + "</td></tr>";
+                        }
+                        if(results[state].district.hasOwnProperty('deceased')) {
+                            text_adds += "<tr><td>Deceased</td><td>" + results[state].district.deceased + "</td></tr>";
+                        }
+                        // if(results[state].district.hasOwnProperty('population')) {
+                        //     // text_adds += "<tr><td>Population</td><td>" + results[state].district.population + "</td></tr>";
+                        //     let pop = document.getElementById("state_pop");
+                        //     pop.innerHTML = "Population of "+ state + " is "+ results[state].district.population;
+                        // }
+                        if(results[state].district.hasOwnProperty('notes')) {
+                            text_adds += "<tr><td>Note</td><td>" + results[state].district.notes + "</td></tr>";
+                        }
+                    }
+                    else{
+                        console.log("DON't KNOW!", results)
+                    }
+                }
+                else{
+                    console.log("DON't KNOW!2", results)
+                }
+                let text_to_disp = "<h4>Daily Counts</h4><table>" + text_adds +"</table>";
+
+                //if(values['notes']){ text_to_disp += "<br />Note: " + values['notes']; }
+                dw.innerHTML = text_to_disp.replace(/\n/g,'<br />');
+                // $.each(all_known_states, function (k, v) {
+                //     let district_data = new Array();
+                //     $.each(return_data[v]['districtData'], function (districtName, districtNumbers) {
+                //
+                //         district_data[districtName] = districtNumbers;
+                //         createOption(selCity, districtName, districtName);
+                //     });
+                //     districtLevelData[v] = district_data;
+                //     createOption(selState, v, v);
+                // });
+                console.log(results);
+
+            });
+        }
     </script>
     <noscript class="displayNone"></noscript>
-    <span style="font-family: Arial, Helvetica, Sans-serif; font-size: 12px;">Note: Numbers for few of the Union territories like Ladakh are not populated appropriately. </span>
-
+    <span style="font-family: Arial, Helvetica, Sans-serif; font-size: 12px; display: None;">Note: Numbers for few of the Union territories like Ladakh are not populated appropriately. </span>
     </body>
-    <footer style="font-family: 'American Typewriter'; font-size: 12px;">
+    <!--<footer style="font-family: 'American Typewriter'; font-size: 12px;">
         <b>Disclaimer: I take NO responsibility for any content on this site! </b><br/>
         This was build as a hobby project using covid19 api which is publicly available.
-    </footer>
+    </footer> -->
 </html>
